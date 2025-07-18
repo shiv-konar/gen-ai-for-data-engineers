@@ -1,0 +1,15 @@
+# Ignore Python artifacts
+__pycache__/
+*.py[cod]
+*.log
+*.env
+
+# Ignore virtual environments
+venv/
+.env/
+
+# Ignore PyCharm project files
+.idea/
+
+# Ignore model files
+models/
