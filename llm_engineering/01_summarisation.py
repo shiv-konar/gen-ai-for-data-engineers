@@ -2,18 +2,23 @@ import os
 from dotenv import load_dotenv
 from openai import OpenAI
 
+# Define path where api-key is stored and load it using load_dotenv package
 dotenv_path = "/Users/shiv.konar/Training/llm_engineering/.env"
-
 load_dotenv(dotenv_path, override=True)
+
+# Retrieve the api key
 api_key = os.getenv('OPENAI_API_KEY')
 
+# Define openai object
 openai = OpenAI()
 
+#  Set the system prompt, which sets the context or the tone for the LLM to respond back in
 system_prompt = """
 You are an analyst that analyzes the financial transactions data and provides summary of where the money has been spent,
 where money can be cut back so savings be increased
 """
 
+#  Set the prompt on which the LLM will work on
 user_prompt = """
 data = [
     {"transaction_id": 1, "date": "2025-01-05", "merchant": "Amazon", "category": "Shopping", "amount": -120.50, "currency": "GBP"},
@@ -29,14 +34,17 @@ data = [
 ]
 """
 
+# messages will always be a list of dictionary in this specified format
 messages = [
     {"role": "system", "content": system_prompt},
     {"role": "user", "content": user_prompt}
 ]
 
+# Call the openai chat completions api and pass the messages list and get a response back
 response = openai.chat.completions.create(
     model="gpt-4o-mini",
     messages=messages
 )
 
+# print the response
 print(response.choices[0].message.content)
